@@ -1,0 +1,28 @@
+%backroundGlass {
+   background: rgba(255, 255, 255, 0.05);
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+   backdrop-filter: blur(10px);
+}
+
+%flexCentr {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+%customScroll {
+   &::-webkit-scrollbar {
+      width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+      -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
+      background: rgba(107, 107, 160, 0.5);
+      
+  backdrop-filter: blur(10px);
+      border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(0, 198, 251, 0.5), rgba(0, 91, 234, 0.5));
+  }
+}

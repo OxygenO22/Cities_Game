@@ -1,0 +1,607 @@
+.wrapper .main .multiplayer .multiplayer__item, .wrapper .main .multiplayer .multiplayer__item .multiplayer__item-title, .wrapper .main .multiplayer .multiplayer__item .multiplayer__input, .wrapper .main .multiplayer .multiplayer__item .multiplayer__button .multiplayer__button-player, .wrapper .main .multiplayer .multiplayer__item .multiplayer__button .multiplayer__button-hint, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer, .wrapper .main .information, .wrapper .main .keyboard, .wrapper .main .keyboard .keyboard__inner .keyboard__row .keyboard__row-item, .wrapper .main .content .content__item, .wrapper .main .content .content__item .content__head .content__title-player, .wrapper .main .content .content__item .content__head .content__title-computer, .wrapper .main .content .content__item .content__image, .wrapper .main .content .content__item .content__info-player .content__info-player-text, .wrapper .main .content .content__item .content__info-player .content__info-computer-text, .wrapper .main .content .content__item .content__info-computer .content__info-player-text, .wrapper .main .content .content__item .content__info-computer .content__info-computer-text, .wrapper .popup .popup__inner .popup__header, .wrapper .popup .popup__inner .popup__main .popup__main-image, .wrapper .popup .popup__inner .popup__main .popup__main-text, .wrapper .popup .popup__inner .popup__footer .popup__button {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__item-choise, .wrapper .main .multiplayer .multiplayer__item .multiplayer__button, .wrapper .main .information, .wrapper .main .keyboard .keyboard__inner .keyboard__row, .wrapper .main .keyboard .keyboard__inner .keyboard__row .keyboard__row-item .name-keyboard__row-item, .wrapper .main .content .content__item, .wrapper .popup .popup__inner .popup__main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper .main .content .content__item .content__info-player .content__info-player-text::-webkit-scrollbar, .wrapper .main .content .content__item .content__info-player .content__info-computer-text::-webkit-scrollbar, .wrapper .main .content .content__item .content__info-computer .content__info-player-text::-webkit-scrollbar, .wrapper .main .content .content__item .content__info-computer .content__info-computer-text::-webkit-scrollbar, .wrapper .popup .popup__inner .popup__main .popup__main-text::-webkit-scrollbar {
+  width: 10px;
+}
+
+.wrapper .main .content .content__item .content__info-player .content__info-player-text::-webkit-scrollbar-track, .wrapper .main .content .content__item .content__info-player .content__info-computer-text::-webkit-scrollbar-track, .wrapper .main .content .content__item .content__info-computer .content__info-player-text::-webkit-scrollbar-track, .wrapper .main .content .content__item .content__info-computer .content__info-computer-text::-webkit-scrollbar-track, .wrapper .popup .popup__inner .popup__main .popup__main-text::-webkit-scrollbar-track {
+  -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
+  background: rgba(107, 107, 160, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+}
+
+.wrapper .main .content .content__item .content__info-player .content__info-player-text::-webkit-scrollbar-thumb, .wrapper .main .content .content__item .content__info-player .content__info-computer-text::-webkit-scrollbar-thumb, .wrapper .main .content .content__item .content__info-computer .content__info-player-text::-webkit-scrollbar-thumb, .wrapper .main .content .content__item .content__info-computer .content__info-computer-text::-webkit-scrollbar-thumb, .wrapper .popup .popup__inner .popup__main .popup__main-text::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(0, 198, 251, 0.5), rgba(0, 91, 234, 0.5));
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  color: #000;
+}
+
+.wrapper {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+}
+
+.wrapper .main {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.wrapper .main .multiplayer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.wrapper .main .multiplayer .multiplayer__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 30%;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.wrapper .main .multiplayer .multiplayer__item:last-child {
+  margin-right: 0;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__item-title {
+  width: 100%;
+  text-align: center;
+  font-size: 1.2em;
+  padding: 2px 10px;
+  margin-bottom: 10px;
+  user-select: none;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__item-title span {
+  font-size: 1em;
+  color: #f00;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__item-title-replay {
+  cursor: pointer;
+  transition: .5s;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__item-title-replay:hover {
+  background: rgba(247, 4, 4, 0.452);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__item-choise {
+  margin-bottom: 10px;
+  user-select: none;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__item-choise .multiplayer__item-bel {
+  color: #000;
+  margin-right: 20px;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__item-choise .multiplayer__item-checkbox {
+  cursor: pointer;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__input {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: none;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__button {
+  width: 100%;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__button .multiplayer__button-player, .wrapper .main .multiplayer .multiplayer__item .multiplayer__button .multiplayer__button-hint {
+  width: 50%;
+  padding: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: .5s;
+  border: none;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__button .multiplayer__button-player:hover, .wrapper .main .multiplayer .multiplayer__item .multiplayer__button .multiplayer__button-hint:hover {
+  cursor: pointer;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__button .multiplayer__button-player {
+  margin-right: 20px;
+  animation: light 3s infinite;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__button .multiplayer__button-hint {
+  animation: light 4s infinite;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__button .js-active__information {
+  box-shadow: 5px 5px 15px rgba(245, 4, 4, 0.7);
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer {
+  width: 100%;
+  height: 100%;
+  min-height: 25px;
+  max-height: 100px;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player::-webkit-scrollbar, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer::-webkit-scrollbar {
+  width: 10px;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player::-webkit-scrollbar-track, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer::-webkit-scrollbar-track {
+  -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
+  background: rgba(107, 107, 160, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player::-webkit-scrollbar-thumb, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(0, 198, 251, 0.5), rgba(0, 91, 234, 0.5));
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player .multiplayer__players-cities, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player .multiplayer__computer-cities, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer .multiplayer__players-cities, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer .multiplayer__computer-cities {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player .multiplayer__players-cities .player__city, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player .multiplayer__players-cities .computer__city, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player .multiplayer__computer-cities .player__city, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player .multiplayer__computer-cities .computer__city, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer .multiplayer__players-cities .player__city, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer .multiplayer__players-cities .computer__city, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer .multiplayer__computer-cities .player__city, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer .multiplayer__computer-cities .computer__city {
+  font-size: 1em;
+  margin-left: 5px;
+  list-style-type: none;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player .multiplayer__players-cities .player__city:hover, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player .multiplayer__players-cities .computer__city:hover, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player .multiplayer__computer-cities .player__city:hover, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-player .multiplayer__computer-cities .computer__city:hover, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer .multiplayer__players-cities .player__city:hover, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer .multiplayer__players-cities .computer__city:hover, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer .multiplayer__computer-cities .player__city:hover, .wrapper .main .multiplayer .multiplayer__item .multiplayer__list-computer .multiplayer__computer-cities .computer__city:hover {
+  color: #f00;
+}
+
+.wrapper .main .information {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px 5px;
+}
+
+.wrapper .main .information .information__text {
+  font-size: 1.2em;
+  font-weight: 500;
+  text-align: center;
+  margin-right: 4px;
+  user-select: none;
+}
+
+.wrapper .main .information .information__hint {
+  font-size: 1.2em;
+  font-weight: 500;
+  padding: 0px 5px;
+  background: rgba(245, 4, 4, 0.5);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.wrapper .main .information .information__hint:hover {
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+.wrapper .main .js-active__information {
+  box-shadow: 5px 5px 15px rgba(245, 4, 4, 0.5);
+}
+
+.wrapper .main .keyboard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px 5px;
+  margin-bottom: 20px;
+}
+
+.wrapper .main .keyboard .keyboard__inner {
+  display: none;
+  flex-direction: column;
+  margin-top: 15px;
+}
+
+.wrapper .main .keyboard .keyboard__inner .keyboard__row {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.wrapper .main .keyboard .keyboard__inner .keyboard__row:last-child {
+  margin-bottom: 0;
+}
+
+.wrapper .main .keyboard .keyboard__inner .keyboard__row .keyboard__row-item {
+  width: 50px;
+  height: 50px;
+  user-select: none;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.wrapper .main .keyboard .keyboard__inner .keyboard__row .keyboard__row-item:last-child {
+  margin-right: 0;
+}
+
+.wrapper .main .keyboard .keyboard__inner .keyboard__row .keyboard__row-item:hover {
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+.wrapper .main .keyboard .keyboard__inner .keyboard__row .keyboard__row-item .name-keyboard__row-item {
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper .main .keyboard .js-active-keyboard {
+  display: flex;
+}
+
+.wrapper .main .keyboard .keyboard__row-name {
+  text-align: center;
+  width: 100%;
+  transition: .5s;
+  cursor: pointer;
+}
+
+.wrapper .main .keyboard .keyboard__row-name:hover {
+  background: rgba(245, 4, 4, 0.5);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+.wrapper .main .keyboard .keyboard__button {
+  font-size: 1.2em;
+  font-weight: 500;
+  padding: 0px 5px;
+  border-radius: 5px;
+  user-select: none;
+}
+
+.wrapper .main .content {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.wrapper .main .content .content__item {
+  flex-direction: column;
+  width: 50%;
+  margin-right: 20px;
+  padding: 10px;
+}
+
+.wrapper .main .content .content__item:last-child {
+  margin-right: 0;
+}
+
+.wrapper .main .content .content__item .content__head {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.wrapper .main .content .content__item .content__head .content__title-player, .wrapper .main .content .content__item .content__head .content__title-computer {
+  font-size: 1.5em;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.wrapper .main .content .content__item .content__head .content__title-player:hover, .wrapper .main .content .content__item .content__head .content__title-computer:hover {
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+.wrapper .main .content .content__item .content__image {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 20px;
+}
+
+.wrapper .main .content .content__item .content__image .content__img-player, .wrapper .main .content .content__item .content__image .content__img-computer {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.wrapper .main .content .content__item .content__image .content__img-player:hover, .wrapper .main .content .content__item .content__image .content__img-computer:hover {
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+.wrapper .main .content .content__item .content__info-player, .wrapper .main .content .content__item .content__info-computer {
+  width: 100%;
+}
+
+.wrapper .main .content .content__item .content__info-player .content__info-player-text, .wrapper .main .content .content__item .content__info-player .content__info-computer-text, .wrapper .main .content .content__item .content__info-computer .content__info-player-text, .wrapper .main .content .content__item .content__info-computer .content__info-computer-text {
+  font-size: 1.2em;
+  height: 200px;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+.wrapper .main .js-active {
+  display: flex;
+}
+
+.wrapper .popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  overflow-y: auto;
+}
+
+.wrapper .popup .popup__inner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 80%;
+  max-height: 100%;
+  border-radius: 5px;
+  background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+}
+
+.wrapper .popup .popup__inner .popup__header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  border-radius: 3px 3px 0 0;
+}
+
+.wrapper .popup .popup__inner .popup__header .popup__header-title {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #000;
+  user-select: none;
+}
+
+.wrapper .popup .popup__inner .popup__main {
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  background: #fff;
+}
+
+.wrapper .popup .popup__inner .popup__main .popup__main-image {
+  width: 100%;
+  max-width: 1200px;
+  max-height: 800px;
+  margin-bottom: 10px;
+}
+
+.wrapper .popup .popup__inner .popup__main .popup__main-image .popup__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wrapper .popup .popup__inner .popup__main .popup__main-text {
+  max-height: 180px;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  font-size: 1em;
+  font-weight: 300;
+  color: #000;
+  overflow-y: auto;
+}
+
+.wrapper .popup .popup__inner .popup__footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+}
+
+.wrapper .popup .popup__inner .popup__footer .popup__button {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  font-weight: 700;
+  transition: .2s;
+  border: none;
+}
+
+.wrapper .popup .popup__inner .popup__footer .popup__button:hover {
+  cursor: pointer;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.wrapper .popup .popup__inner .popup__footer .popup__button-proceedgame, .wrapper .popup .popup__inner .popup__footer .popup__button-newgame {
+  display: none;
+}
+
+.wrapper .popup .popup__inner .popup__footer .popup__button-proceedgame {
+  margin-right: 20px;
+}
+
+.wrapper .popup .popup__inner .popup__footer .js-active-button {
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper .popup .popup__inner .popup__footer .js-active__information {
+  background: rgba(245, 4, 4, 0.5);
+}
+
+.wrapper .js-active {
+  display: flex;
+}
+
+.wrapper .js-none {
+  display: none;
+}
+
+.wrapper .js-cursor-pointer {
+  cursor: pointer;
+}
+
+.load {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  z-index: 2;
+}
+
+.load .js-none {
+  display: none;
+}
+
+.load hr {
+  border: 0;
+  margin: 0;
+  width: 40%;
+  height: 40%;
+  position: absolute;
+  border-radius: 50%;
+  animation: spin 2s ease infinite;
+}
+
+.load :first-child {
+  background: #19A68C;
+  animation-delay: -1.5s;
+}
+
+.load :nth-child(2) {
+  background: #F63D3A;
+  animation-delay: -1s;
+}
+
+.load :nth-child(3) {
+  background: #FDA543;
+  animation-delay: -0.5s;
+}
+
+.load :last-child {
+  background: #193B48;
+}
+
+@keyframes spin {
+  0%, 100% {
+    transform: translate(0);
+  }
+  25% {
+    transform: translate(160%);
+  }
+  50% {
+    transform: translate(160%, 160%);
+  }
+  75% {
+    transform: translate(0, 160%);
+  }
+}
+
+@keyframes light {
+  0% {
+    background: #e6a020;
+  }
+  50% {
+    background: #00c3ff;
+  }
+  100% {
+    background: #e6a020;
+  }
+}
+
+@media (max-width: 1100px) {
+  .wrapper .main .content .content__item .content__image {
+    height: 300px;
+  }
+}
+
+@media (max-width: 770px) {
+  .wrapper .main {
+    padding: 10px;
+  }
+  .wrapper .main .multiplayer {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  .wrapper .main .multiplayer .multiplayer__item {
+    margin-right: 0;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .wrapper .main .content {
+    flex-direction: column;
+  }
+  .wrapper .main .content .content__item {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .wrapper .main .keyboard .keyboard__inner .keyboard__row {
+    margin-bottom: 10px;
+  }
+  .wrapper .main .keyboard .keyboard__inner .keyboard__row .keyboard__row-item {
+    margin-right: 5px;
+  }
+  .wrapper .main .content .content__item .content__image {
+    height: 250px;
+  }
+}
+
+@media (max-width: 400px) {
+  .wrapper .main .keyboard .keyboard__inner .keyboard__row .keyboard__row-item {
+    margin-right: 3px;
+  }
+  .wrapper .main .keyboard .keyboard__inner .keyboard__row .keyboard__row-item:hover {
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.7);
+  }
+}
