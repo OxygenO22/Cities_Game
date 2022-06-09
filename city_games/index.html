@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://ndc.sqilsoft.by/downloads/srsm/res/css/spacePanelStyle.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <script src="https://ndc.sqilsoft.by/downloads/srsm/res/js/socketManager.js?v=1"></script>
+    <script src="https://ndc.sqilsoft.by/downloads/srsm/res/js/socket-api.js?v=1"></script>
+    
+    <title>Игра в города</title>
+</head>
+<body>
+    <div class="space_panel-heading" id='spacePanel'></div>
+    <div class="space_popup-disconnect"></div>
+    <div class="space_custom-popup"></div>
+    <div class="wrapper">
+        <div class="load" id="load-window">
+            <hr/><hr/><hr/><hr/>
+        </div>
+        <div class="main">
+            <div class="multiplayer">
+                <div class="multiplayer__item">
+                    <p class="multiplayer__item-title ">Ответы игрока</p>
+                    <div class="multiplayer__list-player" id="multiplayer__list-player">
+                        <ul class="multiplayer__players-cities" id="multiplayer__players-cities"></ul>
+                    </div>   
+                </div>
+                <div class="multiplayer__item">
+                    <p class="multiplayer__item-title multiplayer__item-title-replay" id="multiplayer__item-title" title="Начать заново">
+                        <span class="player-result" id="player-result-text">Счет:</span>
+                        <span class="player-result" id="player-result">0</span>
+                    </p>
+                    <div class="multiplayer__item-choise" id="multiplayer__item-choise" title="Выберите с какой базой знаний компьютера вы хотите играть">
+                        <p class="multiplayer__item-bel" id="multiplayer__item-bel">Только белорусские города</p>
+                        <input type="checkbox" class="multiplayer__item-checkbox" id="multiplayer__item-checkbox" name="choice__cities" id="choice">
+                    </div>
+                    <input class="multiplayer__input" id="multiplayer__input" placeholder="Введите город, чтобы начать игру!" type="none" autofocus readonly>
+                    <div class="multiplayer__button">
+                        <button class="multiplayer__button-player" id="multiplayer__button-player" title="Город игрока">Оk</button>
+                        <button class="multiplayer__button-hint" id="multiplayer__button-hint" title="Подсказка">Подсказка</button>
+                    </div>
+                </div>    
+                <div class="multiplayer__item">
+                    <p class="multiplayer__item-title">Ответы компьютера</p>
+                    <div class="multiplayer__list-computer" id="multiplayer__list-computer">
+                        <ul class="multiplayer__computer-cities" id="multiplayer__computer-cities"></ul>
+                    </div>   
+                </div>
+            </div>
+
+            <div class="pannel" id="pannel">
+                <div class="information" id="information">
+                    <p class="information__text" id="information__text">Отличной игры!</p>
+                    <p class="information__hint" id="information__hint" title="Нажми, чтобы подсказка ввелась автоматически"></p>
+                </div>
+
+                <div class="sound__button" id="sound__button" >
+                    <img class="sound__on" id="sound__on" src="img/icon/soundOn.svg" alt="soundOn">
+                    <img class="sound__off" id="sound__off" src="img/icon/soundOff.svg" alt="soundOff">
+                </div>
+            </div>
+
+            <div class="keyboard">
+                <div class="keyboard__row-name" id="keyboard__row-name" title="Нажми, чтобы открыть/закрыть виртуальную клавитуру">
+                    <p class="name-keyboard__row-item keyboard__button">
+                        Клавиатура
+                    </p>
+                </div>
+                <div class="keyboard__inner" id="keyboard__inner">
+                    <div class="keyboard__row" id="keyboard__row">
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                й
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                ц
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                у
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                к
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                е
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                н
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                г
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                ш
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                щ
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                з
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                х
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                ъ
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item backspace">
+                            <p class="name-keyboard__row-item " id="keyboard__key" title="Backspace"  data-action="Backspace">
+                                &larr;
+                            </p>
+                        </div>
+                    </div>
+                    <div class="keyboard__row" id="keyboard__row">
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                ф
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                ы
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                в
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                а
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                п
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                р
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                о
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                л
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                д
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                ж
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                э
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item enter">
+                            <p class="name-keyboard__row-item" id="keyboard__key" title="Enter"  data-action= "Enter">
+                                &crarr;
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item enter">
+                            <p class="name-keyboard__row-item" id="keyboard__key" title="Up"  data-action= "Up">
+                                &uarr;
+                            </p>
+                        </div>
+                    </div>
+                    <div class="keyboard__row" id="keyboard__row">
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                я
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                ч
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                с
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                м
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                и
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                т
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key" title="Space"  data-action= "Space">
+                                &mdash;
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                ь
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                б
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                ю
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                ё
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                -
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key" title="Clear"  data-action= "Clear">
+                                &lArr;
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="keyboard__inner keyboard__inner-up" id="keyboard__inner-up">
+                    <div class="keyboard__row" id="keyboard__row">
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Й
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Ц
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                У
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                К
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Е
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Н
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Г
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Ш
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Щ
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                З
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Х
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Ъ
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item backspace">
+                            <p class="name-keyboard__row-item " id="keyboard__key" title="Backspace"  data-action="Backspace">
+                                &larr;
+                            </p>
+                        </div>
+                    </div>
+                    <div class="keyboard__row" id="keyboard__row">
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Ф
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Ы
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                В
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                А
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                П
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Р
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                О
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Л
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Д
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Ж
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Э
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item enter">
+                            <p class="name-keyboard__row-item" id="keyboard__key" title="Enter"  data-action= "Enter">
+                                &crarr;
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item enter">
+                            <p class="name-keyboard__row-item" id="keyboard__key" title="Down"  data-action= "Down">
+                                &darr;
+                            </p>
+                        </div>
+                    </div>
+                    <div class="keyboard__row" id="keyboard__row">
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Я
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Ч
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                С
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                М
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                И
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Т
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key" title="Space"  data-action= "Space">
+                                &mdash;
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Ь
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Б
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Ю
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                Ё
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key">
+                                -
+                            </p>
+                        </div>
+                        <div class="keyboard__row-item">
+                            <p class="name-keyboard__row-item" id="keyboard__key" title="Clear"  data-action= "Clear">
+                                &lArr;
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content" id="content">
+                <div class="content__item" id="content__item-player">
+                    <div class="content__head">
+                        <p class="content__title-player" id="content__title-player" title="Нажми, чтобы увидеть в одном окне">
+                            Введите город
+                        </p>
+                    </div>
+                    <div class="content__image" title="Нажми, чтобы увидеть в одном окне">
+                        <div class="load" id="load-player">
+                            <hr/><hr/><hr/><hr/>
+                        </div>
+                        <img src="./img/first.jpg" alt="image" class="content__img-player" id="content__img-player">
+                    </div>
+                    <div class="content__info-player" id="content__info-player">
+                        <div class="content__info-player-text" id="content__info-player-text">
+                            Введите город, чтобы увидеть информацию о нём!
+                        </div>
+                    </div>
+                </div>
+                <div class="content__item" id="content__item-computer">
+                    <div class="content__head">
+                        <p class="content__title-computer" id="content__title-computer" title="Нажми, чтобы увидеть в одном окне">
+                            Введите город
+                        </p>
+                    </div>
+                    <div class="content__image" title="Нажми, чтобы увидеть в одном окне">
+                        <div class="load" id="load-computer">
+                            <hr/><hr/><hr/><hr/>
+                        </div>
+                        <img src="./img/first.jpg" alt="image" class="content__img-computer" id="content__img-computer">
+                    </div>
+                    <div class="content__info-computer" id="content__info-computer">
+                        <div class="content__info-computer-text" id="content__info-computer-text">
+                            Введите город, чтобы увидеть информацию о нём!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup" id="popup">
+            <div class="popup__inner" id="popup__inner">
+                <div class="popup__header">
+                    <h2 class="popup__header-title" id="popup__header-title">Название города</h2>
+                </div>
+                <div class="popup__main">
+                    <div class="popup__main-image" id="popup__main-image">
+                        <div class="load" id="load-popup">
+                            <hr/><hr/><hr/><hr/>
+                        </div>
+                        <img src="./img/first.jpg" alt="image" class="popup__img" id="popup__img">
+                    </div>
+                    <p class="popup__main-text" id="popup__main-text">
+                        Информация о городе.
+                    </p>
+                </div>
+                <div class="popup__footer">
+                    <button class="popup__button popup__button-proceedgame" id="popup__button-proceedgame">
+                        Продолжить
+                    </button>
+                    <button class="popup__button popup__button-newgame" id="popup__button-newgame">
+                        Заново
+                    </button>
+                    <button class="popup__button" id="popup__button">
+                        Ok
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/citiesOfBelarusInfo.js?v=1"></script>
+    <script src="js/cities.js?v=1"></script>
+    <script src="https://ndc.sqilsoft.by/downloads/srsm/res/js/spacePanel.js?v=1"></script>
+    <script src="js/app.js?v=1"></script>
+    
+</body>
+</html>
