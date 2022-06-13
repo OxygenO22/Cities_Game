@@ -737,7 +737,7 @@ const getWikiInfo = (result, text, img, currentCity) => {
                 }
                 let headlineForRemove = item.querySelectorAll(".mw-headline");
                 for (itemHeadlineForRemove of headlineForRemove) {
-                    if(itemHeadlineForRemove.innerText == "См. также" || itemHeadlineForRemove.innerText == "Ссылки" || itemHeadlineForRemove.innerText == "Примечания") {
+                    if(["См. также", "Ссылки", "Примечания"].includes(itemHeadlineForRemove.innerText)) {
                         itemHeadlineForRemove.remove();
                     }
                 }
