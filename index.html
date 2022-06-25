@@ -31,13 +31,22 @@
                     </div>   
                 </div>
                 <div class="multiplayer__item">
-                    <p class="multiplayer__item-title multiplayer__item-title-replay" id="multiplayer__item-title" title="Начать заново">
-                        <span class="player-result" id="player-result-text">Счет:</span>
-                        <span class="player-result" id="player-result">0</span>
-                    </p>
-                    <div class="multiplayer__item-choise" id="multiplayer__item-choise" title="Выберите с какой базой знаний компьютера вы хотите играть">
-                        <p class="multiplayer__item-bel" id="multiplayer__item-bel">Только белорусские города</p>
-                        <input type="checkbox" class="multiplayer__item-checkbox" id="multiplayer__item-checkbox" name="choice__cities" id="choice">
+                    <div class="multiplayer__item-inner">
+                        <div class="multiplayer__result">
+                            <p class="player-result" id="player-result-text">Счет:</p>
+                            <p class="player-result" id="player-result">0</p>
+                        </div>
+                        
+                        <div class="button__menu" id="button__menu">
+                            <p class="button__menu-text" id="button__menu-text" title="Меню">
+                               <span class="button__menu-text-close" id="button__menu-text-close">
+                                    Меню
+                                </span> 
+                               <span class="button__menu-text-open" id="button__menu-text-open">
+                                    X
+                                </span> 
+                            </p>
+                        </div>
                     </div>
                     <input class="multiplayer__input" id="multiplayer__input" placeholder="Введите город, чтобы начать игру!" type="none" autofocus readonly>
                     <div class="multiplayer__button">
@@ -50,18 +59,6 @@
                     <div class="multiplayer__list-computer" id="multiplayer__list-computer">
                         <ul class="multiplayer__computer-cities" id="multiplayer__computer-cities"></ul>
                     </div>   
-                </div>
-            </div>
-
-            <div class="pannel" id="pannel">
-                <div class="information" id="information">
-                    <p class="information__text" id="information__text">Отличной игры!</p>
-                    <p class="information__hint" id="information__hint" title="Нажми, чтобы подсказка ввелась автоматически"></p>
-                </div>
-
-                <div class="sound__button" id="sound__button" >
-                    <img class="sound__on" id="sound__on" src="img/icon/soundOn.svg" alt="soundOn">
-                    <img class="sound__off" id="sound__off" src="img/icon/soundOff.svg" alt="soundOff">
                 </div>
             </div>
 
@@ -486,15 +483,17 @@
                             Введите город
                         </p>
                     </div>
-                    <div class="content__image" title="Нажми, чтобы увидеть в одном окне">
-                        <div class="load" id="load-player">
-                            <hr/><hr/><hr/><hr/>
+                    <div class="content__inner">
+                        <div class="content__image" id="content__image-player" title="Нажми, чтобы увидеть в одном окне">
+                            <div class="load" id="load-player">
+                                <hr/><hr/><hr/><hr/>
+                            </div>
+                            <img src="./img/first.jpg" alt="image" class="content__img-player" id="content__img-player">
                         </div>
-                        <img src="./img/first.jpg" alt="image" class="content__img-player" id="content__img-player">
-                    </div>
-                    <div class="content__info-player" id="content__info-player">
-                        <div class="content__info-player-text" id="content__info-player-text">
-                            Введите город, чтобы увидеть информацию о нём!
+                        <div class="content__info-player" id="content__info-player">
+                            <div class="content__info-player-text" id="content__info-player-text">
+                                Введите город, чтобы увидеть информацию о нём!
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -504,17 +503,49 @@
                             Введите город
                         </p>
                     </div>
-                    <div class="content__image" title="Нажми, чтобы увидеть в одном окне">
-                        <div class="load" id="load-computer">
-                            <hr/><hr/><hr/><hr/>
+                    <div class="content__inner">
+                        <div class="content__image" id="content__image-computer" title="Нажми, чтобы увидеть в одном окне">
+                            <div class="load" id="load-computer">
+                                <hr/><hr/><hr/><hr/>
+                            </div>
+                            <img src="./img/first.jpg" alt="image" class="content__img-computer" id="content__img-computer">
                         </div>
-                        <img src="./img/first.jpg" alt="image" class="content__img-computer" id="content__img-computer">
-                    </div>
-                    <div class="content__info-computer" id="content__info-computer">
-                        <div class="content__info-computer-text" id="content__info-computer-text">
-                            Введите город, чтобы увидеть информацию о нём!
+                        <div class="content__info-computer" id="content__info-computer">
+                            <div class="content__info-computer-text" id="content__info-computer-text">
+                                Введите город, чтобы увидеть информацию о нём!
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu" id="menu">
+            <div class="menu__inner">
+                <div class="menu__background" id="menu__background">
+                    <div class=" multiplayer__item-title-replay" id="multiplayer__item-title" title="Начать заново">
+                        Начать заново
+                    </div>
+                    <div class="multiplayer__item-choise" id="multiplayer__item-choise"
+                        title="Выберите с какой базой знаний компьютера вы хотите играть">
+                        <p class="multiplayer__item-bel" id="multiplayer__item-bel">Только белорусские города</p>
+                        <input type="checkbox" class="multiplayer__item-checkbox" id="multiplayer__item-checkbox"
+                            name="choice__cities" id="choice">
+                    </div>
+                    <div class="sound__button" id="sound__button">
+                        <img class="sound__on" id="sound__on" src="img/icon/soundOn.svg" alt="soundOn">
+                        <img class="sound__off" id="sound__off" src="img/icon/soundOff.svg" alt="soundOff">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="information" id="information">
+            <div class="information__background" id="information__background"></div>
+            <div class="information__inner">
+                <div class="information__content">
+                    <p class="information__text" id="information__text">Отличной игры!</p>
+                    <p class="information__hint" id="information__hint" title="Нажми, чтобы подсказка ввелась автоматически"></p>
                 </div>
             </div>
         </div>
@@ -524,7 +555,7 @@
                 <div class="popup__header">
                     <h2 class="popup__header-title" id="popup__header-title">Название города</h2>
                 </div>
-                <div class="popup__main">
+                <div class="popup__main" id="popup__main" title="Нажмите, чтобы изменить соотношение размера фото к тексту">
                     <div class="popup__main-image" id="popup__main-image">
                         <div class="load" id="load-popup">
                             <hr/><hr/><hr/><hr/>
@@ -537,10 +568,10 @@
                 </div>
                 <div class="popup__footer">
                     <button class="popup__button popup__button-proceedgame" id="popup__button-proceedgame">
-                        Продолжить
+                        Нет
                     </button>
                     <button class="popup__button popup__button-newgame" id="popup__button-newgame">
-                        Заново
+                        Да
                     </button>
                     <button class="popup__button" id="popup__button">
                         Ok

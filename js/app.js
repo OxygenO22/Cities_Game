@@ -1,4 +1,5 @@
 let multiplayerItemTitle = document.querySelector("#multiplayer__item-title");
+let buttonMenu = document.querySelector("#button__menu");
 let multiplayerItemChoise = document.querySelector("#multiplayer__item-choise");
 let multiplayerItemCheckbox = document.querySelector("#multiplayer__item-checkbox");
 let multiplayerInput = document.querySelector("#multiplayer__input");
@@ -54,7 +55,7 @@ const WIKI = "https://ru.wikipedia.org/wiki/{{City}}";
 
 // Gives sounds 
 const getAudio = (flag) => {
-    if (soundButton.dataset.soundoff !== "soundOff") {
+    if (soundButton.dataset.soundon === "soundOn") {
         let buttonClick = document.createElement("audio");
         if (flag === "click") {
             buttonClick.src = "audio/click.mp3";
@@ -83,13 +84,28 @@ const getCityFromWiki = (currentCity, text, img) => {
    redirect: 'follow'
    })
    .then(response => response.text())
-   .then(result => getWikiInfo(result, text, img, currentCity))
+   .then(result =>  checkWikisCurrentCity(result, text, img, currentCity))
+   .catch(error => console.log('error', error));
+}
+
+// Fetch the checked city from wiki
+const getCheckedCityFromWiki = (trueCurrentCity, text, img) => {
+   var formdata = new FormData();
+   formdata.append("ext_url", `${WIKI.replace("{{City}}", trueCurrentCity)}`);
+   fetch("https://www.256.by/spider/GetContentFromUrl.php", {
+   method: 'POST',
+   body: formdata,
+   redirect: 'follow'
+   })
+   .then(response => response.text())
+   .then(result =>  getWikiInfo(result, text, img, trueCurrentCity))
    .catch(error => console.log('error', error));
 }
 
 window.addEventListener('load', ()=> {
     hidePreloader(loadWindow);
     checkLSCheckboxStatus();
+    getTeslaSizeContent();
 });
 
 setTimeout(()=>{
@@ -282,15 +298,45 @@ const checkLSCheckboxStatus = () => {
 // Checks sound button status in LocalStorage
 const checkSoundButtonStatus = (condition) => {
     if (condition) {
-        soundButton.dataset.soundoff = "soundOff";
-        document.querySelector("#sound__off").classList.add("js-active-sound");
-        document.querySelector("#sound__on").classList.add("js-unactive-sound");
+        soundButton.dataset.soundon = "soundOn";
+        document.querySelector("#sound__off").classList.add("js-unactive-sound");
+        document.querySelector("#sound__on").classList.add("js-active-sound");
     } else {
-        soundButton.dataset.soundoff = "";
-        document.querySelector("#sound__off").classList.remove("js-active-sound");
-        document.querySelector("#sound__on").classList.remove("js-unactive-sound");
+        soundButton.dataset.soundon = "";
+        document.querySelector("#sound__off").classList.remove("js-unactive-sound");
+        document.querySelector("#sound__on").classList.remove("js-active-sound");
     }
 }
+
+// Checks keyboard name color status in LocalStorage
+const checkKeyboardColorStatus = () => {
+    if (JSON.parse(localStorage.getItem('keyboardColor')) === true) {
+        keyboardRowName.classList.add("js-active-keyboard-color");
+    } else {
+        keyboardRowName.classList.remove("js-active-keyboard-color");
+    }
+}
+
+// Logic for UI if buttonMenu or button newGame click
+const getButtonMenuDo = (flag) => {
+    if (flag === "buttonMenu") {
+    document.querySelector("#menu").classList.toggle("js-active-menu");
+    buttonMenu.classList.toggle("js-active-blur");
+    document.querySelector("#button__menu-text-close").classList.toggle("js-active-close");
+    document.querySelector("#button__menu-text-open").classList.toggle("js-active-open");
+    } else if (flag === "newGame") {
+        document.querySelector("#menu").classList.remove("js-active-menu");
+        buttonMenu.classList.remove("js-active-blur");
+        document.querySelector("#button__menu-text-close").classList.remove("js-active-close");
+        document.querySelector("#button__menu-text-open").classList.remove("js-active-open");
+    }
+}
+
+// Eventlistener for menu button
+buttonMenu.addEventListener("click", () => {
+    getAudio("click");
+    getButtonMenuDo("buttonMenu");
+});
 
 // EventListener for status records checkbox LocalStorage
 multiplayerItemCheckbox.addEventListener("click", () => {
@@ -327,6 +373,7 @@ const clearLocalStorage = () => {
     localStorage.removeItem('Computer_result');
     localStorage.removeItem('keyboard');
     localStorage.removeItem('keyboardUp');
+    localStorage.removeItem('keyboardColor');
     localStorage.removeItem('lastCompLetter');
     arrayPlayer.length = 0;
     arrayComputer.length = 0;
@@ -343,6 +390,8 @@ const continueGame = () => {
     multiplayerInput.value = `${JSON.parse(localStorage.getItem('lastCompLetter'))}`;
     playerResult.innerHTML = arrayPlayer.length;
     content.classList.add("js-active");
+    checkLSCheckboxStatus();
+    checkKeyboardColorStatus();
     renderInfoPhoto(getCurrentCity(arrayPlayer[0], citiesOfBelarusInfo), arrayPlayer[0], contentInfoPlayerText, contentImgPlayer);
     showCityInTitle(arrayPlayer[0], contentTitlePlayer);
     addCityInAttribute(arrayPlayer[0], contentItemPlayer);
@@ -350,7 +399,6 @@ const continueGame = () => {
     showCityInTitle(arrayComputer[0], contentTitleComputer);
     addCityInAttribute(arrayComputer[0], contentItemComputer);
     setHintsLastLetter(JSON.parse(localStorage.getItem('lastCompLetter')));
-    checkLSCheckboxStatus();
     pushLastLetterInArrKeyboard(JSON.parse(localStorage.getItem('lastCompLetter')));
     if (JSON.parse(localStorage.getItem('keyboard')) === true) {
         keyboardInner.classList.add("js-active-keyboard");
@@ -358,7 +406,42 @@ const continueGame = () => {
     if (JSON.parse(localStorage.getItem('keyboardUp')) === true) {
         keyboardInnerUp.classList.add("js-active-keyboard");
     }
-    checkSoundButtonStatus(JSON.parse(localStorage.getItem('soundOff')) === true);
+    checkSoundButtonStatus(JSON.parse(localStorage.getItem('soundOn')) === true);
+    getTeslaSizeContent();
+}
+
+// Shows content on Tesla screen without vertical scroll
+const getTeslaSizeContent = () => {
+    if (window.innerWidth === 1180 && window.innerHeight === 1010) {
+        if (JSON.parse(localStorage.getItem('keyboard')) === false && JSON.parse(localStorage.getItem('keyboardUp')) === false || JSON.parse(localStorage.getItem('keyboard')) === null && JSON.parse(localStorage.getItem('keyboardUp')) === null) {
+            document.querySelector("#content__image-player").style.cssText = "height: 340px;";
+            document.querySelector("#content__image-computer").style.cssText = "height: 340px;";
+            document.querySelector("#content__info-player-text").style.cssText = "height: 350px;";
+            document.querySelector("#content__info-computer-text").style.cssText = "height: 350px;";
+        } else {
+            document.querySelector("#content__image-player").style.cssText = "height: 250px;";
+            document.querySelector("#content__image-computer").style.cssText = "height: 250px;";
+            document.querySelector("#content__info-player-text").style.cssText = "height: 260px;";
+            document.querySelector("#content__info-computer-text").style.cssText = "height: 260px;";
+        }
+    } else if (window.innerWidth === 1160 && window.innerHeight === 834) {
+        if (JSON.parse(localStorage.getItem('keyboard')) === false && JSON.parse(localStorage.getItem('keyboardUp')) === false || JSON.parse(localStorage.getItem('keyboard')) === null && JSON.parse(localStorage.getItem('keyboardUp')) === null) {
+            document.querySelector("#content__image-player").style.cssText = "height: 260px;";
+            document.querySelector("#content__image-computer").style.cssText = "height: 260px;";
+            document.querySelector("#content__info-player-text").style.cssText = "height: 260px;";
+            document.querySelector("#content__info-computer-text").style.cssText = "height: 260px;";
+        } else {
+            document.querySelector("#content__image-player").style.cssText = "height: 180px;";
+            document.querySelector("#content__image-computer").style.cssText = "height: 180px;";
+            document.querySelector("#content__info-player-text").style.cssText = "height: 160px;";
+            document.querySelector("#content__info-computer-text").style.cssText = "height: 160px;";
+        }
+    } else {
+        document.querySelector("#content__image-player").style.cssText = "";
+        document.querySelector("#content__image-computer").style.cssText = "";
+        document.querySelector("#content__info-player-text").style.cssText = "";
+        document.querySelector("#content__info-computer-text").style.cssText = "";
+    }
 }
 
 // Show preloader
@@ -429,8 +512,21 @@ function speechComputerCity(){
     } else {
     keyboardInner.classList.toggle("js-active-keyboard");
     writeLSKeyboardStatus();
-    }    
+    }
+    getTeslaSizeContent();
+    toggleKeyboardActivColor();
 });
+
+// Show/hide active color to keyboard head
+const toggleKeyboardActivColor = () => {
+    if (keyboardInnerUp.classList.contains("js-active-keyboard") || keyboardInner.classList.contains("js-active-keyboard")) { 
+        keyboardRowName.classList.add("js-active-keyboard-color");
+        localStorage.setItem('keyboardColor', JSON.stringify(true));
+    } else {
+        keyboardRowName.classList.remove("js-active-keyboard-color");
+        localStorage.setItem('keyboardColor', JSON.stringify(false));
+    }
+}
 
 // Pushing hint word into array keyboard
 const pushHintInArrKeyboard = () => {
@@ -516,27 +612,34 @@ const showSurePopup = () => {
     popupButtonNewgame.innerHTML = `Да`;
     popupButton.classList.add("js-none");
     popupMainText.innerHTML = `Начать заново?`;
-    popupButtonProceedgame.addEventListener("click", () => {
-        getAudio("click");
-        hidePopup();
-    });
-    popupButtonNewgame.addEventListener("click", () => {
-        getAudio("click");
-        setTimeout( () => {
-            location.reload();
-            clearLocalStorage();
-            hidePopup();
-            checkLSCheckboxStatus();
-            window.socketManager.sendMessage({
-                type: 'playTts',
-                value: 'Вы хотите начать заново?',
-                ttsEndEventType: 'resetWords'
-            })
-            sure = true;
-        }, 500)
-    });
+    document.querySelector("#popup__main").classList.add("js-surepopup-size");
+    document.querySelector("#popup__main-text").classList.add("js-surepopup-size-text");
 }
 
+// Eventlistener for proceed game button 
+popupButtonProceedgame.addEventListener("click", () => {
+    getAudio("click");
+    hidePopup();
+});
+
+// Eventlistener for new game button
+popupButtonNewgame.addEventListener("click", () => {
+        getAudio("click");
+    setTimeout( () => {
+        location.reload();
+        clearLocalStorage();
+        hidePopup();
+        checkLSCheckboxStatus();
+        window.socketManager.sendMessage({
+            type: 'playTts',
+            value: 'Вы хотите начать заново?',
+            ttsEndEventType: 'resetWords'
+        })
+        sure = true;
+    }, 500)
+});
+
+// Renders player result
 const getResult = () => {
    return playerResult.innerHTML = arrayPlayer.length
 }
@@ -544,19 +647,8 @@ const getResult = () => {
 // EventListener for the button to reload the game 
 multiplayerItemTitle.addEventListener("click", () => {
     getAudio("click");
+    getButtonMenuDo("newGame");
     showSurePopup();
-});
-
-// EventListener for the game reload button to change its name
-multiplayerItemTitle.addEventListener("mouseover", () => {
-        document.querySelector("#player-result-text").innerText = "Начать заново";
-        document.querySelector("#player-result").classList.add("js-none");
-});
-
-// EventListener for the reload button of the game to change its name to the original one
-multiplayerItemTitle.addEventListener("mouseout", () => {
-        document.querySelector("#player-result-text").innerText = "Счет:";
-        document.querySelector("#player-result").classList.remove("js-none");
 });
 
 // EventListener for toggle checkbox
@@ -622,13 +714,16 @@ const checkCitiesArray = () => {
 // Shows important information 
 const showInfo = () => {
     information.classList.add("js-active__information");
+    document.querySelector("#information__background").classList.add("js-active__information-background");
     information.dataset.information = "Info";
 }
 
 // Hides important information
 const hideInfo = () => {
     information.classList.remove("js-active__info-hint");
+    document.querySelector("#information__background").classList.remove("js-active__info-hint-background");
     information.classList.remove("js-active__information");
+    document.querySelector("#information__background").classList.remove("js-active__information-background");
     multiplayerButtonPlayer.classList.remove("js-active__information");
     multiplayerButtonPlayer.classList.remove("js-active__info-hint");
     informationText.innerHTML = "Отличной игры!";
@@ -697,7 +792,8 @@ const getBelarusInfo = (arrayCurrentCityOfBelarus, text, img) => {
             playText = true;
         }
     } else {
-        text.innerHTML = `${info.join()}`;
+        text.innerHTML = "";
+        text.append(`${info.join()}`);
         if(popup.className.includes('js-active')){
             window.socketManager.sendMessage({
                 type:"playTts",
@@ -711,6 +807,16 @@ const getBelarusInfo = (arrayCurrentCityOfBelarus, text, img) => {
         img.setAttribute("src", `./img/first.jpg`);
     } else {
         img.setAttribute("src", `${photo.join()}`);
+    }
+}
+
+// Checks current city in wiki according options
+const checkWikisCurrentCity = (result, text, img, currentCity) => {
+    if (result.toLowerCase().indexOf("топонимы") === -1 || result.toLowerCase().indexOf("топоним")) {
+        getWikiInfo(result, text, img, currentCity);
+    } else {
+        let trueCurrentCity = currentCity + "_(город)";
+        getCheckedCityFromWiki(trueCurrentCity, text, img);
     }
 }
 
@@ -758,17 +864,25 @@ const getWikiInfo = (result, text, img, currentCity) => {
                     itemAForChange.style.cssText = "text-decoration: none; cursor: default; pointer-events: none;";
                 }
                 text.append(item);
+                item.style.cssText = "padding-bottom : 10px;";
             } 
         }
     } else {
         text.innerHTML = "Нет информации";
     }
     if (wikiImg !== null ){
-        img.setAttribute("src", wikiImg.getAttribute("src"));
+        if (wikiImg.getAttribute("src").indexOf("290px") !== -1) {
+            img.setAttribute("src", wikiImg.getAttribute("src").replace("290px", "580px"));
+        }  else if (wikiImg.getAttribute("src").indexOf("250px") !== -1) {
+            img.setAttribute("src", wikiImg.getAttribute("src").replace("250px", "500px"));
+        }  else if (wikiImg.getAttribute("src").indexOf("271px") !== -1) {
+            img.setAttribute("src", wikiImg.getAttribute("src").replace("271px", "543px"));
+        }  else {
+            img.setAttribute("src", wikiImg.getAttribute("src"));
+        }
     } else {
         img.setAttribute("src", `./img/first.jpg`);
     }
-
 
     if(currentCity === 'player'){
         if(popup.className.includes('js-active')){
@@ -827,6 +941,7 @@ const getComputerTurn = () => {
 // Shows hint
 const showHint = (currentGameArray) => {
     information.classList.add("js-active__info-hint");
+    document.querySelector("#information__background").classList.add("js-active__info-hint-background");
     multiplayerButtonPlayer.classList.add("js-active__info-hint");
     informationText.innerHTML = `Попробуй этот город: `;
     informationHint.innerHTML = `${currentGameArray}`;
@@ -864,11 +979,11 @@ information.addEventListener("click", () => {
 // EventListener for sound button
 soundButton.addEventListener("click", () => {
     getAudio("click");
-    checkSoundButtonStatus(soundButton.dataset.soundoff !== "soundOff");
-    if (soundButton.dataset.soundoff === "soundOff") {
-        localStorage.setItem('soundOff', JSON.stringify(true));
+    checkSoundButtonStatus(soundButton.dataset.soundon !== "soundOn");
+    if (soundButton.dataset.soundon === "soundOn") {
+        localStorage.setItem('soundOn', JSON.stringify(true));
     } else {
-        localStorage.setItem('soundOff', JSON.stringify(false));
+        localStorage.setItem('soundOn', JSON.stringify(false));
     }
 });
 
@@ -955,6 +1070,9 @@ const hidePopup = () => {
     popupMainText.style.cssText = "text-align: center;";
     infoCity = false;
     noReset();
+    document.querySelector("#popup__main").removeEventListener("click", getPopupResizeImgText);
+    document.querySelector("#popup__main").classList.remove("js-surepopup-size");
+    document.querySelector("#popup__main-text").classList.remove("js-surepopup-size-text");
 }
 
 // Shows game over popup
@@ -963,11 +1081,12 @@ const showGameOverPopup = (title, result) => {
     popup.dataset.gameover = "GameOver";
     popupMainImage.classList.add("js-none");
     popupMainText.innerHTML = `Результат: ${result} ходов`;
-    popupButton.classList.add("js-active__information");
     popupButtonProceedgame.classList.remove("js-active-button");
     popupButtonNewgame.classList.remove("js-active-button");
     popupButton.classList.remove("js-none");
     popupHeaderTitle.innerHTML = `${title}`;
+    document.querySelector("#popup__main").classList.add("js-surepopup-size");
+    document.querySelector("#popup__main-text").classList.add("js-surepopup-size-text");
     window.socketManager.sendMessage({
         type: 'playTts',
         value: `${title}`
@@ -1008,6 +1127,7 @@ const showPopupFromCitiesList = (id) => {
         showCityInTitle(id.innerHTML, popupHeaderTitle);
         popupMainText.style.cssText = "text-align: left;";
     }
+    document.querySelector("#popup__main").addEventListener("click", getPopupResizeImgText);
 }
 
 // Renders popup menu with parameter when click on title and when click on photo
@@ -1029,6 +1149,14 @@ const showPopupContentItem = (idTitle, idImg, contentItem, contentImg, contentIn
     if (idImg) {
         renderPopupContentItem(contentItem, contentImg, contentInfoText);
     }
+    document.querySelector("#popup__main").addEventListener("click", getPopupResizeImgText);
+}
+
+// Changes size image/text in popup
+const getPopupResizeImgText = () => {
+    getAudio("click");
+    document.querySelector("#popup__main-image").classList.toggle("js-changesize-small");
+    document.querySelector("#popup__main-text").classList.toggle("js-changesize-big");
 }
 
 // EventListener for show information in console about player city
@@ -1073,6 +1201,7 @@ const checkMultiplayerInputValue = (multiplayerInputValue, actualArray) => {
                 ).join(", ");
             playerResult.innerHTML = arrayPlayer.length;
             content.classList.add("js-active");
+            showTemporaryInfo();
             getComputerAnswer(multiplayerInputValue, actualArray);
             showCityInTitle(multiplayerInputValue, contentTitlePlayer);
             addCityInAttribute(multiplayerInputValue, contentItemPlayer);
@@ -1080,7 +1209,6 @@ const checkMultiplayerInputValue = (multiplayerInputValue, actualArray) => {
             hideInfo();
             setInLocalStorage();
             showPreloader();
-            showTemporaryInfo();
         } else {
             informationText.innerHTML = "Введите город, чтобы начать игру!";
             showInfo();
